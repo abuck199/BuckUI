@@ -1,5 +1,5 @@
 ## Title: |cfff58cbaBuckUI|r
-## Version: 1.0WOTLK
+## Version: 1.1WOTLK
 ## Author: Bucksp - Benediction
 ## Notes: Made by bucksp - Benediction
 ## Interface: 90205
