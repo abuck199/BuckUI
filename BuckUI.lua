@@ -3,16 +3,12 @@ local AC = LibStub("AceConfig-3.0")
 local ACD = LibStub("AceConfigDialog-3.0")
 
 function BuckUI:OnInitialize()
-	-- uses the "Default" profile instead of character-specific profiles
-	-- https://www.wowace.com/projects/ace3/pages/api/ace-db-3-0
 	self.db = LibStub("AceDB-3.0"):New("BuckDB", self.defaults, true)
 
-	-- registers an options table and adds it to the Blizzard options window
 	-- https://www.wowace.com/projects/ace3/pages/api/ace-config-3-0
 	AC:RegisterOptionsTable("BuckUI_Options", self.options)
 	self.optionsFrame = ACD:AddToBlizOptions("BuckUI_Options", "BuckUI")
 
-	-- adds a child options table, in this case our profiles panel
 	local profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	AC:RegisterOptionsTable("BuckUI_Profiles", profiles)
 	ACD:AddToBlizOptions("BuckUI_Profiles", "Profiles", "BuckUI")
@@ -24,8 +20,6 @@ function BuckUI:OnInitialize()
 end
 
 function BuckUI:OnEnable()
-	-- self:RegisterEvent("PLAYER_STARTED_MOVING")
-	-- self:RegisterEvent("CHAT_MSG_CHANNEL")
 	self:DbProfile()
 end
 
@@ -203,7 +197,7 @@ function BuckUI:DbProfile()
 end
 
 function BuckUI:OnDisable()
-
+	-- Nothing
 end
 
 function BuckUI:SlashCommand(input, editbox)
@@ -211,7 +205,6 @@ function BuckUI:SlashCommand(input, editbox)
 		self:Enable()
 		self:Print("Enabled.")
 	elseif input == "disable" then
-		-- unregisters all events and calls HelloAce:OnDisable() if you defined that
 		self:Disable()
 		self:Print("Disabled.")
 	elseif input == "message" then
