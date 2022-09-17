@@ -194,6 +194,23 @@ function BuckUI:DbProfile()
 		BattlefieldFrameInfoScrollFrameChildFrameRewardsInfoRewardsLabel:SetPoint("LEFT",PVPParentFrame,"LEFT",40,65)
 		BattlefieldFrameInfoScrollFrameChildFrameRewardsInfoRewardsLabel.SetPoint = function() end
 	end
+
+	if self.db.profile.ActivateBuffEdit then
+		local BuffSize = self.db.profile.IncreaseBuffSize;
+		local BuffPositionX = self.db.profile.MoveBuffSizeX;
+		local BuffPositionY = self.db.profile.MoveBuffSizeY;
+
+		if self.db.profile.IncreaseBuffSize then
+			BuffFrame:SetScale(BuffSize)
+		end
+		if self.db.profile.MoveBuffSizeX then
+			BuffFrame:ClearAllPoints()
+			BuffFrame:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT", BuffPositionX, BuffPositionY)
+			BuffFrame.SetPoint = function() end
+		end
+
+	end
+
 end
 
 function BuckUI:OnDisable()

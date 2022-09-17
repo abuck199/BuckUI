@@ -23,6 +23,11 @@ BuckUI.defaults = {
 		HidePetBarKeybind = false,
 		HideMacroName = false,
 		HideStanceKeybind = false,
+		-- Buff & Debuffs
+		ActivateBuffEdit = false,
+		IncreaseBuffSize = 1,
+		MoveBuffSizeX = 0,
+		MoveBuffSizeY = 0,
 		-- Cast bar
 		CastBarActivation = false,
 		CastBarSize = 1,
@@ -239,6 +244,56 @@ BuckUI.options = {
 					desc = "Hide Keybind on stance/form/aura bar",
 					width = "double",
 				}
+			},
+		},
+		groupBuffs = {
+			type = "group",
+			order = 9,
+			name = "Buffs & Debuffs",
+			inline = false,
+			get = "GetValue",
+			set = "SetValue",
+			args = {
+				noteGroupBuffs = {
+					type = "description",
+					name = "\n|cFFFFFF00" .. "Tips: if u are using any other addons that manage your buffs & debuffs i suggest not activating this feature \n ",
+					fontSize = "small",
+					order = 0,
+				},
+				ActivateBuffEdit = {
+					type = "toggle",
+					order = 1,
+					name = "Activate Buffs & Debuffs Edits",
+					desc = "((if u are using Leatrix plus to manage your buff & debuffs do not activate this feature))",
+					width = "double",
+				},
+				IncreaseBuffSize = {
+					type = "range",
+					order = 2,
+					name = "Buffs & Debuffs Size",
+					min = 0,
+					max = 2,
+					step = 0.05,
+					width = "double",
+				},
+				MoveBuffSizeX = {
+					type = "range",
+					order = 3,
+					name = "Left To Right Position (x)",
+					min = -500,
+					max = 0,
+					step = 1.0,
+					width = "double",
+				},
+				MoveBuffSizeY = {
+					type = "range",
+					order = 4,
+					name = "Up to Down Position (y)",
+					min = -500,
+					max = 0,
+					step = 1.0,
+					width = "double",
+				},
 			},
 		},
 		group5CastBar = {
