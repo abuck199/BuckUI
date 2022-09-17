@@ -199,6 +199,7 @@ function BuckUI:DbProfile()
 		local BuffSize = self.db.profile.IncreaseBuffSize;
 		local BuffPositionX = self.db.profile.MoveBuffSizeX;
 		local BuffPositionY = self.db.profile.MoveBuffSizeY;
+		local BuffPerRow = self.db.profile.NumberOfBuffRow;
 
 		if self.db.profile.IncreaseBuffSize then
 			BuffFrame:SetScale(BuffSize)
@@ -208,9 +209,10 @@ function BuckUI:DbProfile()
 			BuffFrame:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT", BuffPositionX, BuffPositionY)
 			BuffFrame.SetPoint = function() end
 		end
-
+		if self.db.profile.NumberOfBuffRow then
+			BUFFS_PER_ROW = BuffPerRow
+		end
 	end
-
 end
 
 function BuckUI:OnDisable()

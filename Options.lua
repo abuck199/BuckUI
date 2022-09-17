@@ -28,6 +28,7 @@ BuckUI.defaults = {
 		IncreaseBuffSize = 1,
 		MoveBuffSizeX = 0,
 		MoveBuffSizeY = 0,
+		NumberOfBuffRow = 10,
 		-- Cast bar
 		CastBarActivation = false,
 		CastBarSize = 1,
@@ -292,6 +293,15 @@ BuckUI.options = {
 					min = -500,
 					max = 0,
 					step = 1.0,
+					width = "double",
+				},
+				NumberOfBuffRow = {
+					type = "range",
+					order = 5,
+					name = "Number of Buff Per Row",
+					min = 1,
+					max = 20,
+					step = 1,
 					width = "double",
 				},
 			},
