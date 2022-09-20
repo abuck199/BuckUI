@@ -63,6 +63,13 @@ function BuckUI:DbProfile()
 		ChatFrame1EditBox:SetPoint("RIGHT", ChatFrame1, 5, 10)
 	end
 
+	if self.db.profile.ForLooney then
+		for i = 1, 10 do
+			_G["ChatFrame"..i.."ButtonFrameBottomButton"]:ClearAllPoints()
+			_G["ChatFrame"..i.."ButtonFrameBottomButton"]:SetPoint("RIGHT", ChatFrame1, "RIGHT", 32, -58)
+			_G["ChatFrame"..i.."ButtonFrameBottomButton"].SetPoint = function() end
+		end
+	end
 
 	if self.db.profile.ChatClassColor then
 		SetCVar("chatClassColorOverride", 1);
