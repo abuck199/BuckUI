@@ -52,6 +52,18 @@ function BuckUI:DbProfile()
 		end
 	end
 
+	local ChatBarScale = self.db.profile.ChatBar;
+	if self.db.profile.ChatBar then
+		ChatFrame1EditBox:SetScale(ChatBarScale)
+	end
+
+	if self.db.profile.ChatBarMove then
+		ChatFrame1EditBox:ClearAllPoints()
+		ChatFrame1EditBox:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", -5, 25)
+		ChatFrame1EditBox:SetPoint("RIGHT", ChatFrame1, 5, 10)
+	end
+
+
 	if self.db.profile.ChatClassColor then
 		SetCVar("chatClassColorOverride", 1);
 	else
@@ -195,6 +207,10 @@ function BuckUI:DbProfile()
 		BattlefieldFrameInfoScrollFrameChildFrameRewardsInfoRewardsLabel.SetPoint = function() end
 	end
 
+	if self.db.profile.ErrorNotification then
+		UIErrorsFrame:SetAlpha(0)
+	end
+
 	if self.db.profile.ActivateBuffEdit then
 		local BuffSize = self.db.profile.IncreaseBuffSize;
 		local BuffPositionX = self.db.profile.MoveBuffSizeX;
@@ -234,3 +250,4 @@ function BuckUI:SlashCommand(input, editbox)
 		InterfaceOptionsFrame_OpenToCategory(self.optionsFrame)
 	end
 end
+
