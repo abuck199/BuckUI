@@ -44,10 +44,12 @@ BuckUI.defaults = {
 		ClassColorFriendlyNameplate = 0,
 		HideBgText = false,
 		ErrorNotification = false,
+		ApplyFontOnActionBar = false,
+		ChangeUnitFrame = false,
 	},
 }
 
--- https://www.wowace.com/projects/ace3/pages/ace-config-3-0-options-tables
+
 BuckUI.options = {
 	type = "group",
 	name = "BuckUI Options",
@@ -104,14 +106,14 @@ BuckUI.options = {
 				ChatArrowKey = {
 					type = "toggle",
 					order = 3,
-					name = " Hide Arrow Up/Down Button",
+					name = "Hide Arrow Up/Down Button",
 					desc = "Hide left chat up/down arrow  buttons",
 					width = "double",
 				},
 				ChatScrollDown = {
 					type = "toggle",
 					order = 4,
-					name = " Hide Scroll Down Button",
+					name = "Hide Scroll Down Button",
 					desc = "Hide left chat scroll down arrow button (if u toggle this the scroll down opacity is not gonna work)",
 					width = "double",
 				},
@@ -427,6 +429,20 @@ BuckUI.options = {
 					desc = "e.g. Remove Red Error message (Out of Range. Not Enough Mana.)",
 					width = "double",
 				},
+				ApplyFontOnActionBar = {
+					type = "toggle",
+					order = 7,
+					name = "Apply Font On Action Bar",
+					desc = "Apply Font On Action Bar Hotkey",
+					width = "double",
+				},
+				ChangeUnitFrame = {
+					type = "toggle",
+					order = 8,
+					name = "Special UnitFrame",
+					desc = "Special UnitFrame (make sure to put Status Text to 'Both' in Interface -> Display)",
+					width = "double",
+				},
 			},
 		},
 	},
@@ -435,16 +451,6 @@ function BuckUI:Reload()
 	ReloadUI()
 end
 
--- function BuckUI:GetSomeRange(info)
--- 	return self.db.profile.someRange
--- end
-
--- function BuckUI:SetSomeRange(info, value)
--- 	self.db.profile.someRange = value
--- end
-
--- for documentation on the info table
--- https://www.wowace.com/projects/ace3/pages/ace-config-3-0-options-tables#title-4-1
 function BuckUI:GetValue(info)
 	return self.db.profile[info[#info]]
 end
