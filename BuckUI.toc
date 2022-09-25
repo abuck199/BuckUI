@@ -1,5 +1,5 @@
 ## Title: |c004AAAE7Buck|r|cfff58cbaUI|r
-## Version: 1.5 |c004AAAE7WOTLK|r
+## Version: 1.6 |c004AAAE7WOTLK|r
 ## Author: Bucksp - Benediction
 ## Notes: Made by bucksp - Benediction
 ## Interface: 90205

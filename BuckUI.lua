@@ -28,7 +28,6 @@ function BuckUI:DbProfile()
 	local FirstTabIndex = 1
 	local LastTabIndex = 10
 
-
 	if self.db.profile.ChatChannel then
 		ChatFrameChannelButton:Hide()
 	end
@@ -111,16 +110,16 @@ function BuckUI:DbProfile()
 
 	if self.db.profile.CombatIndicator then
 		local targetFrame = CreateFrame("Frame", nil , TargetFrame)
-		targetFrame:SetPoint("LEFT", TargetFrame, "RIGHT", -25, 10)
-		targetFrame:SetSize(26,26)
+		targetFrame:SetPoint("LEFT", TargetFrame, "RIGHT", -40, 10)
+		targetFrame:SetSize(28,28)
 		targetFrame.icon = targetFrame:CreateTexture(nil, "BORDER")
 		targetFrame.icon:SetAllPoints()
 		targetFrame.icon:SetTexture([[Interface\Icons\ABILITY_DUALWIELD]])
 		targetFrame:Hide()
 		
 		local focusFrame = CreateFrame("Frame", nil , FocusFrame)
-		focusFrame:SetPoint("LEFT", FocusFrame, "RIGHT", -25, 10)
-		focusFrame:SetSize(26,26)
+		focusFrame:SetPoint("LEFT", FocusFrame, "RIGHT", -40, 10)
+		focusFrame:SetSize(28,28)
 		focusFrame.icon = focusFrame:CreateTexture(nil, "BORDER")
 		focusFrame.icon:SetAllPoints()
 		focusFrame.icon:SetTexture([[Interface\Icons\ABILITY_DUALWIELD]])
@@ -307,6 +306,14 @@ function BuckUI:DbProfile()
 			"PetActionButton9",
 			"PetActionButton10",
 			
+			"StanceButton1",
+			"StanceButton2",
+			"StanceButton3",
+			"StanceButton4",
+			"StanceButton5",
+			"StanceButton6",
+			"StanceButton7",
+			
 			"MultiBarBottomRightButton1",
 			"MultiBarBottomRightButton2",
 			"MultiBarBottomRightButton3",
@@ -322,9 +329,9 @@ function BuckUI:DbProfile()
 		}) do
 			local obj = _G[objname]
 			if obj then
-				obj.HotKey:SetFont("Fonts\\FRIZQT__.ttf",11,"OUTLINE");
+				obj.HotKey:SetFont("Fonts\\FRIZQT__.ttf",12,"OUTLINE");
 				obj.HotKey:SetShadowColor(0, 0, 0, 1)
-				obj.Count:SetFont("Fonts\\FRIZQT__.ttf",11,"OUTLINE");
+				obj.Count:SetFont("Fonts\\FRIZQT__.ttf",12,"OUTLINE");
 				obj.Count:SetShadowColor(0, 0, 0, 1)
 			end
 		end
@@ -363,6 +370,7 @@ function BuckUI:DbProfile()
 		TargetFrameTextureFrame.HealthBarTextLeft:SetShadowColor(0, 0, 0, 1)
 		TargetFrameTextureFrame.HealthBarTextLeft:ClearAllPoints()
 		TargetFrameTextureFrame.HealthBarTextLeft:SetPoint("LEFT", TargetFrameHealthBar, "LEFT", 0, 31)
+		TargetFrameTextureFrame.HealthBarTextLeft:SetAlpha(0)
 		TargetFrameTextureFrame.ManaBarTextRight:SetScale(1.2);
 		TargetFrameTextureFrame.ManaBarTextRight:SetFont("Fonts\\FRIZQT__.ttf",10,"OUTLINE");
 		TargetFrameTextureFrame.ManaBarTextRight:SetShadowColor(0, 0, 0, 1)
@@ -378,7 +386,8 @@ function BuckUI:DbProfile()
 		FocusFrameTextureFrame.HealthBarTextLeft:SetFont("Fonts\\FRIZQT__.ttf",11,"OUTLINE");
 		FocusFrameTextureFrame.HealthBarTextLeft:SetShadowColor(0, 0, 0, 1)
 		FocusFrameTextureFrame.HealthBarTextLeft:ClearAllPoints()
-		FocusFrameTextureFrame.HealthBarTextLeft:SetPoint("LEFT", FocusFrameHealthBar, "LEFT", 0, 31)
+		FocusFrameTextureFrame.HealthBarTextLeft:SetPoint("LEFT", FocusFrameHealthBar, "LEFT", 0, 70)
+		FocusFrameTextureFrame.HealthBarTextLeft:SetAlpha(0)
 		FocusFrameTextureFrame.ManaBarTextRight:SetScale(1.2);
 		FocusFrameTextureFrame.ManaBarTextRight:SetFont("Fonts\\FRIZQT__.ttf",10,"OUTLINE");
 		FocusFrameTextureFrame.ManaBarTextRight:SetShadowColor(0, 0, 0, 1)
@@ -396,6 +405,63 @@ function BuckUI:DbProfile()
 		end)
 		PetName:SetFont("Fonts\\FRIZQT__.ttf",10,"OUTLINE");
 		PetName:SetShadowColor(0, 0, 0, 1)
+	end
+
+	if self.db.profile.SnowFallKeyPress then
+		local animationsCount, animations = 5, {}
+		local animationNum = 1
+		local frame, texture, alpha1, scale1, scale2, rotation2
+		for i = 1, animationsCount do
+			frame = CreateFrame("Frame")
+			texture = frame:CreateTexture() texture:SetTexture('Interface\\Cooldown\\star4') texture:SetAlpha(0) texture:SetAllPoints() texture:SetBlendMode("ADD")
+			animationGroup = texture:CreateAnimationGroup()
+			alpha1 = animationGroup:CreateAnimation("Alpha") alpha1:SetFromAlpha(0) alpha1:SetToAlpha(1) alpha1:SetDuration(0) alpha1:SetOrder(1)
+			scale1 = animationGroup:CreateAnimation("Scale") scale1:SetScale(1.0, 1.0) scale1:SetDuration(0) scale1:SetOrder(1)
+			scale2 = animationGroup:CreateAnimation("Scale") scale2:SetScale(1.5, 1.5) scale2:SetDuration(0.3) scale2:SetOrder(2)
+			rotation2 = animationGroup:CreateAnimation("Rotation") rotation2:SetDegrees(90) rotation2:SetDuration(0.3) rotation2:SetOrder(2)
+			animations[i] = {frame = frame, animationGroup = animationGroup}
+		end
+
+		local AnimateButton = function(self)
+        if not self:IsVisible() then return true end
+			local animation = animations[animationNum]
+			local frame = animation.frame
+			local animationGroup = animation.animationGroup
+			frame:SetFrameStrata("HIGH")
+			frame:SetFrameLevel(20)
+			frame:SetAllPoints(self)
+			animationGroup:Stop()
+			animationGroup:Play()
+			animationNum = (animationNum % animationsCount) + 1
+        		return true
+		end
+
+		hooksecurefunc('MultiActionButtonDown', function(bname, id)
+			AnimateButton(_G[bname..'Button'..id])
+		end)
+
+		hooksecurefunc('PetActionButtonDown', function(id)
+        	local button
+            	if PetActionBarFrame then
+                    if id > NUM_PET_ACTION_SLOTS then return end
+                        button = _G["PetActionButton"..id]
+                    if not button then return end
+                end
+            return
+         		AnimateButton(button)
+		end)
+
+		hooksecurefunc('ActionButtonDown', function(id)
+        	local button
+        	if OverrideActionBar and OverrideActionBar:IsShown() then
+                if id > NUM_OVERRIDE_BUTTONS then return end
+                	button = _G["OverrideActionBarButton"..id]
+         		else
+                	button = _G["ActionButton"..id]
+         	end
+        	if not button then return end
+        		AnimateButton(button)
+		end)
 	end
 end
 

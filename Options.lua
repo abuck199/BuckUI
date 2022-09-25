@@ -46,6 +46,7 @@ BuckUI.defaults = {
 		ErrorNotification = false,
 		ApplyFontOnActionBar = false,
 		ChangeUnitFrame = false,
+		SnowFallKeyPress = false,
 	},
 }
 
@@ -441,6 +442,13 @@ BuckUI.options = {
 					order = 8,
 					name = "Special UnitFrame",
 					desc = "Special UnitFrame (make sure to put Status Text to 'Both' in Interface -> Display)",
+					width = "double",
+				},
+				SnowFallKeyPress = {
+					type = "toggle",
+					order = 9,
+					name = "SnowFall Key Press",
+					desc = "Little animation when you press on your action bar key",
 					width = "double",
 				},
 			},
